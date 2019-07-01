@@ -14,14 +14,15 @@ function getSearchListbyQuery(req, res, next) {
         q: req.params.query
     }, function (err, response) {
         if (err) {
-            console.log('The API returned an error: ' + err);
+            res.send('Status: 404. The API returned an error: ' + err);
             return;
         }
         let videolist = response.data.items;
         if (videolist.length == 0) {
-            console.log('No video found.');
+            res.send('Status 200. No video found.');
+            return;
         } else {
-            res.send(`This video's ID is ${videolist[0].id.videoId}. Its title is ${videolist[0].snippet.title} and it has published by ${videolist[0].snippet.channelTitle}
+            res.send(`Status: 200. This video's ID is ${videolist[0].id.videoId}. Its title is ${videolist[0].snippet.title} and it has published by ${videolist[0].snippet.channelTitle}
             <div class="item">
                 <iframe class="video w100" width="640" height="360" src="//www.youtube.com/embed/${videolist[0].id.videoId}" frameborder="0" allowfullscreen></iframe>
             </div>`);
